@@ -1,0 +1,16 @@
+main {
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+section {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+    background-color: pink;
+    font-size: 1.3rem;
+}
+
+aside {
+}
