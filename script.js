@@ -14,18 +14,6 @@ document.getElementById('button').addEventListener('click', async () => {
     sortWeather(thisWeather);
 });
 
-document.getElementById('convertTemp').addEventListener('click', (e) => {
-    convertTemp()
-})
-
-function convertTemp (thisWeather) {
-    console.log(event.target)
-    const tempDisp = document.getElementById('temp');
-    console.log(tempDisp.innerText)
-    let bob = tempDisp.innerText
-    
-
- }
 
 function sortWeather(thisWeather) {
     const tempDisp = document.getElementById('temp');
@@ -40,7 +28,6 @@ function sortWeather(thisWeather) {
     const humidityDisp = document.getElementById('humidity');
     const tempC = tempKtoC(thisWeather.main.temp);
     const feelsC = tempKtoC(thisWeather.main.feels_like);
-
     const windSpeed = windSpeedConverter(thisWeather.wind.speed);
     const windDeg = windConverter(thisWeather.wind.deg);
     const sunrise = timeConverter(thisWeather.sys.sunrise);
@@ -58,7 +45,28 @@ function sortWeather(thisWeather) {
     weatherIconDisp.innerHTML = `<img src="https://openweathermap.org/img/w/${icon}.png">`;
     localTime.innerText = `${new Date().toLocaleDateString()}`;
     humidityDisp.innerText = `humidity ${thisWeather.main.humidity}%`;
+
+    document.getElementById('convertTemp').addEventListener('click', (e) => {
+        toggleTemp(thisWeather, tempDisp, feelsDisp)
+    })
 }
+
+function toggleTemp (thisWeather, tempDisp, feelsDisp) {
+    const tempF = tempKtoF(thisWeather.main.temp);
+    const feelsF = tempKtoF(thisWeather.main.feels_like);
+    const tempC = tempKtoC(thisWeather.main.temp);
+    const feelsC = tempKtoC(thisWeather.main.feels_like);
+    const button = event.target;
+    if (button.innerText === 'show ℉') {
+    tempDisp.innerText = `${tempF}°`;
+    feelsDisp.innerText = `feels like ${feelsF}°`;
+    button.innerText = 'show ℃';
+    } else {
+        tempDisp.innerText = `${tempC}°`;
+        feelsDisp.innerText = `feels like ${feelsC}°`;
+        button.innerText = 'show ℉';
+    }
+ }
 
 function tempKtoF(kVal) {
     const cVal = kVal - 273.5;
