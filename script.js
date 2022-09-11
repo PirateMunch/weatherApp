@@ -45,9 +45,11 @@ function sortWeather(thisWeather) {
     weatherIconDisp.innerHTML = `<img src="https://openweathermap.org/img/w/${icon}.png">`;
     localTime.innerText = `${new Date().toLocaleDateString()}`;
     humidityDisp.innerText = `humidity ${thisWeather.main.humidity}%`;
+    getImage(description);
 
     document.getElementById('convertTemp').addEventListener('click', (e) => {
-        toggleTemp(thisWeather, tempDisp, feelsDisp)
+        toggleTemp(thisWeather, tempDisp, feelsDisp);
+        getImage(description)
     })
 }
 
@@ -107,3 +109,14 @@ async function defaultDisplay() {
     sortWeather(thisWeather);
 }
 window.onload = defaultDisplay()
+
+async function getImage(type) {
+    const response = await fetch(
+        `https://api.giphy.com/v1/gifs/translate?api_key=9FQ3YNPxHlSFhcbwKVjp1gKRf86bjYx6&s=${type}`,
+        { mode: 'cors' }
+    );
+    const imageData = await response.json();
+    const boss = document.getElementById('boss')
+    boss.innerText = imageData.data.images.original.url
+    boss.src = imageData.data.images.original.url;
+}
