@@ -1,58 +1,85 @@
-
-
-async function getWeather (location) {
+async function getWeather(location) {
     const response = await fetch(
         `http://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=365c088198f2942f06e0b779c8be86fe`,
         { mode: 'cors' }
     );
     const weatherObj = await response.json();
-    console.log(weatherObj.wind)
-    return weatherObj
-};
-
+    console.log(weatherObj.wind);
+    return weatherObj;
+}
 
 document.getElementById('button').addEventListener('click', async () => {
-    const city =  document.getElementById('weather').value
-    const thisWeather = await getWeather(`${city}`)
-    console.log(thisWeather)
-    sortWeather(thisWeather)
+    const city = document.getElementById('weather').value;
+    const thisWeather = await getWeather(`${city}`);
+    sortWeather(thisWeather);
+});
 
+document.getElementById('convertTemp').addEventListener('click', (e) => {
+    convertTemp()
 })
 
-function sortWeather (thisWeather) {
+function convertTemp (thisWeather) {
+    console.log(event.target)
     const tempDisp = document.getElementById('temp');
+    console.log(tempDisp.innerText)
+    let bob = tempDisp.innerText
+    
+
+ }
+
+function sortWeather(thisWeather) {
+    const tempDisp = document.getElementById('temp');
+    const feelsDisp = document.getElementById('tempFeels');
     const windDisp = document.getElementById('wind');
     const sunriseDisp = document.getElementById('sunrise');
     const sunsetDisp = document.getElementById('sunset');
-    const temp = tempKtoC(thisWeather.main.temp);
-    const windSpeed = thisWeather.wind.speed;
+    const locationDisp = document.getElementById('location');
+    const descriptionDisp = document.getElementById('description');
+    const weatherIconDisp = document.getElementById('weatherIcon');
+    const localTime = document.getElementById('localTime');
+    const humidityDisp = document.getElementById('humidity');
+    const tempC = tempKtoC(thisWeather.main.temp);
+    const feelsC = tempKtoC(thisWeather.main.feels_like);
+
+    const windSpeed = windSpeedConverter(thisWeather.wind.speed);
     const windDeg = windConverter(thisWeather.wind.deg);
-    const sunrise = timeConverter(thisWeather.sys.sunrise)
+    const sunrise = timeConverter(thisWeather.sys.sunrise);
     const sunset = timeConverter(thisWeather.sys.sunset);
-    console.log(temp, wind, sunrise, sunset)
-
-    tempDisp.innerText = temp
-    windDisp.innerText = `speed ${windSpeed} direction ${windDeg}`
-    sunriseDisp.innerText = sunrise
-    sunsetDisp.innerText = sunset
+    const description = thisWeather.weather[0].description;
+    const icon = thisWeather.weather[0].icon;
+    tempDisp.innerText = `${tempC}°`;
+    feelsDisp.innerText = `feels like ${feelsC}°`;
+    windDisp.innerText = `wind speed - ${windSpeed} mph
+    wind direction - ${windDeg}`;
+    sunriseDisp.innerText = `${sunrise}`;
+    sunsetDisp.innerText = `${sunset}`;
+    descriptionDisp.innerText = description;
+    locationDisp.innerText = `${thisWeather.name} , ${thisWeather.sys.country}`;
+    weatherIconDisp.innerHTML = `<img src="https://openweathermap.org/img/w/${icon}.png">`;
+    localTime.innerText = `${new Date().toLocaleDateString()}`;
+    humidityDisp.innerText = `humidity ${thisWeather.main.humidity}%`;
 }
 
-function tempFtoC(fval) {
-    return (fval -32) / 1.8;
-}
-
-function tempCtoF(cVal) {
-    return (cVal * 1.8) +32;
+function tempKtoF(kVal) {
+    const cVal = kVal - 273.5;
+    const fVal = cVal * 1.8 + 32;
+    const temp = `${fVal.toFixed(0)}`;
+    return temp;
 }
 
 function tempKtoC(kVal) {
-    const result = kVal - 273.15
-    let temp = `${result.toFixed(2)} ℃`
+    const result = kVal - 273.15;
+    let temp = `${result.toFixed(0)}`;
     return temp;
 }
 
 function timeConverter(unixTime) {
-    return new Date(unixTime * 1e3).toISOString().slice(-13, -5);
+    return new Date(unixTime * 1e3).toISOString().slice(-13, -8);
+}
+
+function windSpeedConverter(mps) {
+    const mph = +(2.23694 * mps).toFixed(2);
+    return mph;
 }
 
 function windConverter(deg) {
@@ -66,3 +93,9 @@ function windConverter(deg) {
     if (deg > 22.5) return 'north easterly';
     return 'northerly';
 }
+
+async function defaultDisplay() {
+    const thisWeather = await getWeather(`london`);
+    sortWeather(thisWeather);
+}
+window.onload = defaultDisplay()

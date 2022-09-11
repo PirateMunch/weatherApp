@@ -11,29 +11,34 @@
     <body>
         <header></header>
         <main>
-            <section>
-                <div class="box">
-                    Temp 
+            <div class="weatherHead">
+                <div class="wrapIcon">
+                   <div class="tempBox">
+                    <div class="weatherIcon" id="weatherIcon"></div>
                     <div id="temp"></div>
+                   </div>
+                    <div id="description"></div>
                 </div>
-                <div class="box">
-                    Wind 
-                    <div id="wind"></div>
+                <div class="wrapTime">
+                    <button type="button" class="convertTemp" id="convertTemp">show ℉</button>
+                    <div class="localTime" id="localTime"></div>
+                    <div class="location" id="location"></div>
                 </div>
-                <div class="box">
-                    Sunrise 
-                    <div id="sunrise"></div>
-                </div>
-                <div class="box">
-                    Sunset 
-                    <div id="sunset"></div>
-                </div>
-            </section>
-            <aside>
-                <label for="weather">Enter your location</label>
-                <input type="text" name="weather" id="weather" />
-                <button type="button" id="button">Button</button>
-            </aside>
+            </div>
+            <div class="locationBox">
+                <label for="weather">Enter location</label>
+                <input type="text" name="weather" id="weather" placeholder="London" />
+                <button type="button" id="button">submit</button>
+            </div>
+            <div class="weatherBox">
+            <div class="temps"><div id="tempFeels"></div></div>
+                
+               <div class="sunrise"><div>sunrise<div id="sunrise"></div></div><div>sunset<div id="sunset"></div></span></div></div>
+               <div class="wind">
+                <div id="wind"></div>
+                <div id="humidity"></div>
+            </div>
+            </div>
         </main>
     </body>
 </html>

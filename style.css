@@ -4,13 +4,88 @@ main {
     box-sizing: border-box;
 }
 
-section {
+.weatherHead {
     display: flex;
-    justify-content: space-evenly;
-    gap: 1rem;
-    background-color: pink;
+    justify-content: space-around;
     font-size: 1.3rem;
+    align-items: flex-end;
 }
 
-aside {
+.tempBox {
+    display: flex;
+    align-items: end;
+    font-size: 3rem;
 }
+
+.localTime {
+    display: flex;
+    font-size: 0.8rem;
+    align-self: flex-end;
+    text-align: end;
+}
+
+.location {
+    text-align: end;
+}
+
+.wrapTime {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.convertTemp {
+    margin: 1rem 0 2rem 0;
+    align-self: center;
+}
+
+img {
+    min-height: 4rem;
+}
+
+.weatherBox {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+}
+
+.temps {
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid black;
+    padding: 1rem 0;
+}
+
+.sunrise {
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid black;
+    padding: 1rem 0;
+    line-height: 1.3rem;
+}
+
+.wind {
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid black;
+    padding: 1rem 0;
+    line-height: 1.3rem;
+}
+
+.locationBox {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin: 1rem 1rem 1rem 2rem;
+}
+
+input {
+    border-radius: 12px;
+    text-indent: .8rem;
+}
+
+button {
+    border-radius: 12px;
+    padding: .5rem 1rem;
+}
+
