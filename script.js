@@ -4,7 +4,6 @@ async function getWeather(location) {
         { mode: 'cors' }
     );
     const weatherObj = await response.json();
-    console.log(weatherObj.wind);
     return weatherObj;
 }
 
@@ -112,7 +111,7 @@ window.onload = defaultDisplay()
 
 async function getImage(type) {
     const response = await fetch(
-        `https://api.giphy.com/v1/gifs/translate?api_key=9FQ3YNPxHlSFhcbwKVjp1gKRf86bjYx6&s=${type}`,
+        `http://api.giphy.com/v1/gifs/translate?api_key=9FQ3YNPxHlSFhcbwKVjp1gKRf86bjYx6&s=${type}`,
         { mode: 'cors' }
     );
     const imageData = await response.json();
